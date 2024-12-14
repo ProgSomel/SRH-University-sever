@@ -1,29 +1,8 @@
 import { Request, Response } from "express";
 import { studentService } from "./student.service";
 import { Error } from "mongoose";
-import studentValidationSchema from "./student.validation";
 // import studentValidationSchema from "./student.validation";
 
-const createStudent = async (req: Request, res: Response) => {
-  try {
-    const { student } = req.body;
-
-    const zodParsedStudentData = studentValidationSchema.parse(student);
-
-    const result = await studentService.createStudent(zodParsedStudentData);
-
-    res.send({
-      success: true,
-      message: "Student created successfully",
-      data: result,
-    });
-  } catch (error) {
-    res.status(500).send({
-      success: false,
-      message: (error as Error).message,
-    });
-  }
-};
 
 const getAllStudents = async (req: Request, res: Response) => {
   try {
@@ -75,7 +54,6 @@ const deleteStudent = async (req: Request, res: Response) => {
 };
 
 export const studentController = {
-  createStudent,
   getAllStudents,
   getSingleStudent,
   deleteStudent,

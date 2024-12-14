@@ -82,6 +82,12 @@ const studentSchema = new Schema<IStudent, IStudentModel>(
       unique: true,
       maxlength: [20, "Password can not be more than 20 characters"],
     },
+    user: {
+      type: Schema.Types.ObjectId,
+      required: [true, "User id is required"],
+      unique: true,
+      ref: "User",
+    },
     password: {
       type: String,
       required: true,
@@ -133,11 +139,6 @@ const studentSchema = new Schema<IStudent, IStudentModel>(
       required: true,
     },
     profileImage: String,
-    isActive: {
-      type: String,
-      enum: ["active", "blocked"],
-      default: "active",
-    },
     isDeleted: {
       type: Boolean,
       default: false,
