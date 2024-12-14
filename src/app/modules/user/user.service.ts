@@ -14,7 +14,7 @@ const createStudent = async (
   userData.role = "student";
 
   //? manaully genereted id
-  userData.id = "2030100001";
+  userData.id = "2030100003";
 
   //? create a user
   const newUser = await User.create(userData);

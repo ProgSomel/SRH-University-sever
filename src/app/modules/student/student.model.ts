@@ -1,16 +1,11 @@
 import { Schema, model } from "mongoose";
 import {
   IStudent,
-  // TStudentMethods,
-  // TStudentModel,
   TGuardian,
   TLocalGuardian,
   TUserName,
   IStudentModel,
 } from "./student.interface";
-
-import bcrypt from "bcrypt";
-import config from "../../config";
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -88,10 +83,6 @@ const studentSchema = new Schema<IStudent, IStudentModel>(
       unique: true,
       ref: "User",
     },
-    password: {
-      type: String,
-      required: true,
-    },
     name: {
       type: userNameSchema,
       required: true,
@@ -156,24 +147,12 @@ studentSchema.virtual("fullName").get(function () {
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
 });
 
-//! pre-save middleWire/Hook: will work on create()/save()
-studentSchema.pre("save", async function (next) {
-  // console.log(this, "pre hook: We will save the data");
-  //? hashing password and save into DB
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this;
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds),
-  );
-  next();
-});
-
 //! query middle-wire
 studentSchema.pre("find", function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
-});
+}); // console.log(this, "pre hook: We will save the data");
+//? hashing password and save into DB
 studentSchema.pre("findOne", function (next) {
   this.findOne({ isDeleted: { $ne: true } });
   next();
@@ -182,18 +161,6 @@ studentSchema.pre("aggregate", function (next) {
   this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
   next();
 });
-
-//! post-save middleWire/hook
-studentSchema.post("save", function (doc, next) {
-  doc.password = "";
-  next();
-});
-
-//! Creating a custom Instance method
-// studentSchema.methods.isUserExists = async function (id: string) {
-//   const existingUser = await StudentModel.findOne({ id });
-//   return existingUser;
-// };
 
 //! Creating Static Method
 studentSchema.statics.isUserExists = async function (id: string) {
