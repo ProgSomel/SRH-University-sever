@@ -1,9 +1,9 @@
-PH University Management Project 
+PH University Management Project
 
-Functional Requirements: 
+Functional Requirements:
 
 Authentication
-Student 
+Student
 Students can log in and log out securely.
 Students can update their password.
 Faculty
@@ -13,14 +13,14 @@ Admin:
 Admin can log in and log out securely.
 Admin can update their password.
 
-Profile Management: 
+Profile Management:
 Student
 Students can manage and update their profile.
 Students can update certain fields.
-Faculty: 
+Faculty:
 Faculty can manage and update their profile.
 Faculty can update certain fields.
-Admin: 
+Admin:
 Admin can manage and update their profile.
 Admin can update certain fields.
 
@@ -48,29 +48,11 @@ Admins can manage multiple accounts.
 Admin can block/unblock users.
 Admin can change user passwords.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Data Model
 
 User:
 
-_id
+\_id
 id (generated)
 password
 needsPasswordChange
@@ -80,10 +62,9 @@ isDeleted
 createdAt
 updatedAt
 
-
 Student:
-_id
-id  (generated)
+\_id
+id (generated)
 name
 gender
 dateOfBirth
@@ -100,10 +81,9 @@ isDeleted
 createdAt
 updatedAt
 
-
 Faculty:
-_id
-id  (generated)
+\_id
+id (generated)
 designation
 name
 gender
@@ -120,11 +100,9 @@ isDeleted
 createdAt
 updatedAt
 
-
-
 Admin:
-_id
-id  (generated)
+\_id
+id (generated)
 designation
 name
 gender
@@ -140,11 +118,9 @@ isDeleted
 createdAt
 updatedAt
 
-
-
 Academic Semester:
 
-_id
+\_id
 name
 year
 code
@@ -153,23 +129,18 @@ endMonth
 createdAt
 updatedAt
 
-
 Academic Faculty:
-_id
+\_id
 name
 createdAt
 updatedAt
 
-
 Academic Department:
-_id
+\_id
 name
 academicFaculty
 createdAt
 updatedAt
-
-
-
 
 API Endpoints
 User:
@@ -178,7 +149,6 @@ users/create-student (POST)
 users/create-faculty (POST)
 users/create-admin (POST)
 
-
 Student:
 students (GET)
 students/:id (GET)
@@ -186,7 +156,6 @@ students/:id (PATCH)
 students/:id (DELETE)
 students/my-profile
 
- 
 Faculty:
 faculties(GET)
 faculties/:id (GET)
@@ -208,12 +177,3 @@ auth/refresh-token
 auth/change-password
 auth/forgot-password
 auth/reset-password
-
-
-
-
-
-
-
-
-	
