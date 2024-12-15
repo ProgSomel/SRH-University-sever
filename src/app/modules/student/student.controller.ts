@@ -1,18 +1,10 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { NextFunction, Request, RequestHandler, Response } from "express";
+import { RequestHandler } from "express";
 import { studentService } from "./student.service";
 import sendResponse from "../../utils/sendRespomse";
 import httpStatus from "http-status";
-// import studentValidationSchema from "./student.validation";
+import catchAsync from "../../utils/catchAsync";
 
-const catchAsync = (fn: RequestHandler) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch((err) => next(err));
-  };
-};
-
-const getAllStudents = catchAsync(async (req, res, next) => {
+const getAllStudents = catchAsync(async (req, res) => {
   const result = await studentService.getAllStudents();
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -22,7 +14,7 @@ const getAllStudents = catchAsync(async (req, res, next) => {
   });
 });
 
-const getSingleStudent: RequestHandler = catchAsync(async (req, res, next) => {
+const getSingleStudent: RequestHandler = catchAsync(async (req, res) => {
   const id = req.params.id;
   const result = await studentService.getSingleStudent(id);
   sendResponse(res, {
@@ -32,7 +24,7 @@ const getSingleStudent: RequestHandler = catchAsync(async (req, res, next) => {
     data: result,
   });
 });
-const deleteStudent: RequestHandler = catchAsync(async (req, res, next) => {
+const deleteStudent: RequestHandler = catchAsync(async (req, res) => {
   const id = req.params.id;
   const result = await studentService.deleteStudent(id);
   sendResponse(res, {
