@@ -1,4 +1,4 @@
-import { Model, Types } from "mongoose";
+import { Date, Model, Types } from "mongoose";
 
 export type TUserName = {
   firstName: string;
@@ -28,7 +28,7 @@ export interface IStudent {
   name: TUserName;
   gender: "male" | "female" | "other";
   email: string;
-  dateOfBirth?: string;
+  dateOfBirth?: Date;
   contactNo: string;
   emergencyContactNo: string;
   bloodGroup?: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
